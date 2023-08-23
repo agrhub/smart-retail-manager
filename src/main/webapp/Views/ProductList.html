@@ -1,0 +1,125 @@
+<div ng-init="populate()" style="margin-bottom: 40px !important;">
+    <div style="height: 70px !important;">
+        <div class="alert alert-danger" data-ng-show="error && error !== ''"><strong>Failure!</strong>&nbsp;{{error}}
+        </div>
+        <div class="alert alert-success" data-ng-show="loadingMessage && loadingMessage !== ''">
+            <strong>Success!</strong>&nbsp;{{loadingMessage}}
+        </div>
+    </div>
+    <div class="panel">
+        <div class="input-group" style="margin-bottom: 20px !important;">
+            <input class="form-control"/>
+            <span class="input-group-btn">
+                <button ng-click="add()" class="btn btn-primary">Add</button>
+            </span>
+        </div>
+        <ul class="list-group" id="productlist">
+            <div class="list-group-item list-group-item-action flex-column align-items-start"
+                 data-ng-repeat="item in productList">
+                <div class="row">
+                    <div class="col-2">
+                        <img src="{{item.avatar}}" alt="{{item.name}}" class="img-thumbnail"/>
+                    </div>
+                    <div class="col-6">
+                        <div data-ng-hide="item.edit">
+                            <h4>
+                                <small>{{item.code}}</small>
+                            </h4>
+                            <h4 class="product-name"><strong>{{item.name}}</strong></h4>
+                            <h5>
+                                <small style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; max-width: 100%;">
+                                    {{item.description}}
+                                </small>
+                            </h5>
+                        </div>
+                        <div data-ng-show="item.edit">
+                            <h4>
+                                <small>{{item.code}}</small>
+                            </h4>
+                            <div class="input-group">
+                                <input class="form-control" data-ng-model="editInProgressProduct.name"/>
+                            </div>
+                            <textarea class="form-control" rows="5"
+                                      data-ng-model="editInProgressProduct.description">{{item.description}}</textarea>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div data-ng-hide="item.edit" class="row">
+                            <div class="col-5 text-right">
+                                <div data-ng-hide="item.hasDiscount">
+                                    <h5><strong>{{item.currentPrice | number}}{{item.currency}}</strong></h5>
+                                </div>
+                                <div data-ng-show="item.hasDiscount">
+                                    <h5><strong>{{item.currentPrice | number}}{{item.currency}}</strong></h5>
+                                    <h6>
+                                        <del>{{item.price | number}}{{item.currency}}</del>
+                                    </h6>
+                                </div>
+                                <h6><strong>Unit: </strong>{{item.unit}}</h6>
+                            </div>
+                            <div class="col-1"></div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-success float-right btn-sm"
+                                        ng-disabled="item.finished" data-ng-click="editSwitch(item)">Edit
+                                </button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-danger float-right btn-sm"
+                                        data-ng-click="delete(item.id)">Delete
+                                </button>
+                            </div>
+                        </div>
+                        <div data-ng-show="item.edit" class="row">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-addon">
+                                            <span class="input-group-text" id="basic-addon-price">{{item.currency}}</span>
+                                        </div>
+                                        <input class="form-control" data-ng-model="editInProgressProduct.price"
+                                               placeholder="Price" aria-label="Price"
+                                               aria-describedby="basic-addon-price"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-addon">
+                                            <span class="input-group-text">Discount</span>
+                                        </div>
+                                        <input class="form-control"
+                                               data-ng-model="editInProgressProduct.discount"
+                                               placeholder="Discount" aria-label="Discount"/>
+                                        <div class="input-group-addon">
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-addon">
+                                            <span class="input-group-text" id="basic-addon-unit">Unit</span>
+                                        </div>
+                                        <input class="form-control" data-ng-model="editInProgressProduct.unit"
+                                               placeholder="Unit" aria-label="Unit"
+                                               aria-describedby="basic-addon-unit"/>
+                                        <input type="hidden" data-ng-model="editInProgressProduct.category" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" data-ng-click="update(item)"
+                                        class="btn btn-primary float-right btn-sm">Save
+                                </button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" data-ng-click="editSwitch(item)"
+                                        class="btn btn-secondary float-right btn-sm">Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ul>
+    </div>
+</div>

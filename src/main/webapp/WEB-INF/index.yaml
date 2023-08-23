@@ -1,0 +1,58 @@
+indexes:
+
+  - kind: Categories
+    properties:
+      - name: is_deleted
+      - name: priority
+      - name: create_at
+
+  - kind: Products
+    properties:
+      - name: is_deleted
+      - name: name
+
+  - kind: Products
+    properties:
+      - name: id
+      - name: name
+
+  - kind: Products
+    properties:
+      - name: category_id
+      - name: name
+
+  - kind: Products
+    properties:
+      - name: is_deleted
+      - name: discount
+        direction: desc
+
+  - kind: Devices
+    properties:
+      - name: is_deleted
+      - name: create_at
+
+  - kind: Devices
+    properties:
+      - name: product_id
+      - name: create_at
+
+  - kind: DeviceTypes
+    properties:
+      - name: is_deleted
+      - name: create_at
+
+  - kind: DrawCommands
+    properties:
+      - name: device_type_id
+      - name: priority
+
+  - kind: DrawCommands
+    properties:
+      - name: is_deleted
+      - name: priority
+
+  - kind: DrawCommands
+    properties:
+      - name: type
+      - name: priority

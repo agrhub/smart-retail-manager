@@ -1,0 +1,77 @@
+<div ng-init="populate()" style="margin-bottom: 40px !important;">
+    <div style="height: 70px !important;">
+        <div class="alert alert-danger" data-ng-show="error && error !== ''"><strong>Failure!</strong>&nbsp;{{error}}
+        </div>
+        <div class="alert alert-success" data-ng-show="loadingMessage && loadingMessage !== ''">
+            <strong>Success!</strong>&nbsp;{{loadingMessage}}
+        </div>
+    </div>
+    <div class="panel">
+        <div class="input-group" style="margin-bottom: 20px !important;">
+            <input class="form-control"/>
+            <span class="input-group-btn">
+                <button ng-click="add()" class="btn btn-primary">Add</button>
+            </span>
+        </div>
+        <ul class="list-group" id="list">
+            <div class="list-group-item list-group-item-action flex-column align-items-start"
+                 data-ng-repeat="item in list">
+                <div class="row">
+                    <div class="col-3">
+                        <div data-ng-hide="item.edit">
+                            <h4 class="item-name"><strong>{{item.name}}</strong></h4>
+                        </div>
+                        <div data-ng-show="item.edit">
+                            <div class="input-group">
+                                <input class="form-control" data-ng-model="editInProgressProduct.name"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div data-ng-hide="item.edit">
+                            <h4 class="item-description">{{item.description}}</h4>
+                        </div>
+                        <div data-ng-show="item.edit">
+                            <textarea class="form-control" rows="3"
+                                      data-ng-model="editInProgressProduct.description">{{item.description}}</textarea>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div data-ng-hide="item.edit">
+                            <h4 class="item-priority">{{item.priority}}</h4>
+                        </div>
+                        <div data-ng-show="item.edit">
+                            <div class="input-group">
+                                <input class="form-control" data-ng-model="editInProgressProduct.priority"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div data-ng-hide="item.edit" class="row">
+                            <button type="button" class="btn btn-success float-right btn-sm"
+                                    ng-disabled="item.finished" data-ng-click="editSwitch(item)">Edit
+                            </button>
+                        </div>
+                        <div data-ng-show="item.edit" class="row">
+                            <button type="button" data-ng-click="update(item)"
+                                    class="btn btn-primary float-right btn-sm">Save
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div data-ng-hide="item.edit" class="row">
+                            <button type="button" class="btn btn-danger float-right btn-sm"
+                                    data-ng-click="delete(item.id)">Delete
+                            </button>
+                        </div>
+                        <div data-ng-show="item.edit" class="row">
+                            <button type="button" data-ng-click="editSwitch(item)"
+                                    class="btn btn-secondary float-right btn-sm">Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ul>
+    </div>
+</div>
